@@ -1,0 +1,42 @@
+{
+  "name": "financialplanning-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Financial plan for personal use and control to improve the use of income and expenses.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ant-design/icons": "^6.2.2",
+    "@ant-design/plots": "^2.6.8",
+    "@tanstack/react-query": "^5.100.9",
+    "antd": "^6.3.7",
+    "axios": "^1.16.0",
+    "dayjs": "^1.11.20",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-router-dom": "^7.15.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "jsdom": "^29.1.1",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.10",
+    "vitest": "^4.1.5"
+  }
+}
