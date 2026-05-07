@@ -40,8 +40,8 @@ export function TransactionFormModal({
   return (
     <Modal
       open={open}
-      title={initialValues ? "Edit transaction" : "New transaction"}
-      okText={initialValues ? "Save changes" : "Create transaction"}
+      title={initialValues ? "Editar transacao" : "Nova transacao"}
+      okText={initialValues ? "Salvar alteracoes" : "Criar transacao"}
       confirmLoading={confirmLoading}
       onCancel={onCancel}
       onOk={() => form.submit()}
@@ -83,30 +83,30 @@ export function TransactionFormModal({
           })
         }
       >
-        <Form.Item label="Title" name="title" rules={[{ required: true, min: 2 }]}>
-          <Input placeholder="Groceries, Salary..." />
+        <Form.Item label="Titulo" name="title" rules={[{ required: true, min: 2 }]}>
+          <Input placeholder="Mercado, Salario..." />
         </Form.Item>
-        <Form.Item label="Amount" name="amount" rules={[{ required: true }]}>
+        <Form.Item label="Valor" name="amount" rules={[{ required: true }]}>
           <InputNumber min={0.01} precision={2} style={{ width: "100%" }} />
         </Form.Item>
-        <Form.Item label="Type" name="type" rules={[{ required: true }]}>
+        <Form.Item label="Tipo" name="type" rules={[{ required: true }]}>
           <Select
             options={[
-              { label: "Expense", value: "expense" },
-              { label: "Income", value: "income" },
+              { label: "Despesa", value: "expense" },
+              { label: "Receita", value: "income" },
             ]}
           />
         </Form.Item>
-        <Form.Item label="Date" name="date" rules={[{ required: true }]}>
+        <Form.Item label="Data" name="date" rules={[{ required: true }]}>
           <DatePicker style={{ width: "100%" }} format="DD/MM/YYYY" />
         </Form.Item>
-        <Form.Item label="Wallet" name="walletId" rules={[{ required: true }]}>
+        <Form.Item label="Carteira" name="walletId" rules={[{ required: true }]}>
           <Select options={wallets.map((wallet) => ({ label: wallet.name, value: wallet.id }))} />
         </Form.Item>
-        <Form.Item label="Category" name="categoryId" rules={[{ required: true }]}>
+        <Form.Item label="Categoria" name="categoryId" rules={[{ required: true }]}>
           <Select
             options={filteredCategories.map((category) => ({
-              label: `${category.name} (${category.type})`,
+              label: `${category.name} (${category.type === "income" ? "receita" : "despesa"})`,
               value: category.id,
             }))}
           />

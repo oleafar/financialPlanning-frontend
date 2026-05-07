@@ -11,7 +11,7 @@ export function useFeedback() {
     error(error: AppError | string) {
       const description = typeof error === "string" ? error : error.message;
       void notification.error({
-        message: "Something went wrong",
+        message: "Algo deu errado",
         description,
       });
     },

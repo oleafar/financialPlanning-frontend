@@ -31,4 +31,4 @@ class ResizeObserverMock {
   }
 }
 
-global.ResizeObserver = ResizeObserverMock;
+globalThis.ResizeObserver = ResizeObserverMock;

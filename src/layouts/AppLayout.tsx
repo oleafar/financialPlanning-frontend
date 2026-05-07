@@ -13,10 +13,10 @@ import { notifySessionChange } from "../hooks/useAuthSession";
 const { Header, Sider, Content } = Layout;
 
 const items = [
-  { key: "/dashboard", icon: <AppstoreOutlined />, label: "Dashboard" },
-  { key: "/transactions", icon: <ProfileOutlined />, label: "Transactions" },
-  { key: "/wallets", icon: <WalletOutlined />, label: "Wallets" },
-  { key: "/categories", icon: <TagsOutlined />, label: "Categories" },
+  { key: "/dashboard", icon: <AppstoreOutlined />, label: "Painel" },
+  { key: "/transactions", icon: <ProfileOutlined />, label: "Transacoes" },
+  { key: "/wallets", icon: <WalletOutlined />, label: "Carteiras" },
+  { key: "/categories", icon: <TagsOutlined />, label: "Categorias" },
 ];
 
 export function AppLayout() {
@@ -37,7 +37,7 @@ export function AppLayout() {
       <Sider breakpoint="lg" collapsedWidth="0" width={248} theme="light">
         <div className="brand-block">
           <Typography.Title level={4}>Financial Planning</Typography.Title>
-          <Typography.Text type="secondary">Minimal control for daily finances.</Typography.Text>
+          <Typography.Text type="secondary">Controle simples para as financas do dia a dia.</Typography.Text>
         </div>
         <Menu
           mode="inline"
@@ -49,10 +49,10 @@ export function AppLayout() {
       <Layout>
         <Header className="app-header">
           <Space>
-            <Typography.Text strong>Personal Finance Manager</Typography.Text>
+            <Typography.Text strong>Gerenciador Financeiro Pessoal</Typography.Text>
           </Space>
           <Button icon={<LogoutOutlined />} onClick={handleLogout}>
-            Logout
+            Sair
           </Button>
         </Header>
         <Content className="app-content">

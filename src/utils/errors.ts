@@ -9,7 +9,7 @@ export type AppError = {
 export function toAppError(error: unknown): AppError {
   if (axios.isAxiosError(error)) {
     return {
-      message: error.response?.data?.message || error.message || "Request failed",
+      message: error.response?.data?.message || error.message || "Falha na requisicao",
       statusCode: error.response?.status,
       details: error.response?.data?.details,
     };
@@ -19,5 +19,5 @@ export function toAppError(error: unknown): AppError {
     return { message: error.message };
   }
 
-  return { message: "Unexpected error" };
+  return { message: "Erro inesperado" };
 }

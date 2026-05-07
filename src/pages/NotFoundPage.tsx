@@ -5,11 +5,11 @@ export function NotFoundPage() {
   return (
     <Result
       status="404"
-      title="Page not found"
-      subTitle="The page you tried to access does not exist."
+      title="Pagina nao encontrada"
+      subTitle="A pagina que voce tentou acessar nao existe."
       extra={
         <Button type="primary">
-          <Link to="/dashboard">Back to app</Link>
+          <Link to="/dashboard">Voltar ao app</Link>
         </Button>
       }
     />

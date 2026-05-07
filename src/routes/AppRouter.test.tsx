@@ -15,7 +15,7 @@ describe("AppRouter", () => {
   it("redirects unauthenticated users to login", () => {
     renderWithProviders(<AppRouter />, { route: "/dashboard" });
 
-    expect(screen.getByRole("heading", { name: "Login" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Entrar" })).toBeInTheDocument();
   });
 
   it("renders the dashboard for authenticated users", async () => {
@@ -23,6 +23,6 @@ describe("AppRouter", () => {
 
     renderWithProviders(<AppRouter />, { route: "/dashboard" });
 
-    expect(await screen.findByRole("heading", { name: "Dashboard" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "Painel" })).toBeInTheDocument();
   });
 });

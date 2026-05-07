@@ -60,10 +60,10 @@ export function TransactionsPage() {
     try {
       if (selectedTransaction) {
         await updateMutation.mutateAsync({ id: selectedTransaction.id, input: values });
-        feedback.success("Transaction updated successfully");
+        feedback.success("Transacao atualizada com sucesso");
       } else {
         await createMutation.mutateAsync(values);
-        feedback.success("Transaction created successfully");
+        feedback.success("Transacao criada com sucesso");
       }
 
       setSelectedTransaction(null);
@@ -76,7 +76,7 @@ export function TransactionsPage() {
   async function handleDelete(transactionId: string) {
     try {
       await deleteMutation.mutateAsync(transactionId);
-      feedback.success("Transaction deleted successfully");
+      feedback.success("Transacao excluida com sucesso");
     } catch (error) {
       feedback.error(error as { message: string });
     }
@@ -91,8 +91,8 @@ export function TransactionsPage() {
   return (
     <Space direction="vertical" size={24} style={{ width: "100%" }}>
       <PageTitle
-        title="Transactions"
-        subtitle="Track income and expenses with simple, fast table workflows."
+        title="Transacoes"
+        subtitle="Acompanhe receitas e despesas com uma tabela simples e rapida."
         extra={
           <Button
             type="primary"
@@ -103,7 +103,7 @@ export function TransactionsPage() {
             }}
             disabled={!categories.length || !wallets.length}
           >
-            New transaction
+            Nova transacao
           </Button>
         }
       />
@@ -122,17 +122,17 @@ export function TransactionsPage() {
           />
           <Select
             allowClear
-            placeholder="Type"
+            placeholder="Tipo"
             style={{ width: 140 }}
             options={[
-              { label: "Income", value: "income" },
-              { label: "Expense", value: "expense" },
+              { label: "Receita", value: "income" },
+              { label: "Despesa", value: "expense" },
             ]}
             onChange={(value) => setFilters((current) => ({ ...current, page: 1, type: value }))}
           />
           <Select
             allowClear
-            placeholder="Category"
+            placeholder="Categoria"
             style={{ width: 220 }}
             options={categories.map((category: Category) => ({
               label: category.name,
@@ -145,7 +145,7 @@ export function TransactionsPage() {
           <Input
             allowClear
             prefix={<SearchOutlined />}
-            placeholder="Search by title"
+            placeholder="Buscar por titulo"
             style={{ width: 240 }}
             value={search}
             onChange={(event) => setSearch(event.target.value)}
@@ -174,34 +174,34 @@ export function TransactionsPage() {
                   setFilters((current) => ({ ...current, page, pageSize })),
               }}
               columns={[
-                { title: "Title", dataIndex: "title" },
+                { title: "Titulo", dataIndex: "title" },
                 {
-                  title: "Type",
+                  title: "Tipo",
                   dataIndex: "type",
-                  render: (value: Transaction["type"]) => (value === "income" ? "Income" : "Expense"),
+                  render: (value: Transaction["type"]) => (value === "income" ? "Receita" : "Despesa"),
                 },
                 {
-                  title: "Category",
-                  render: (_, transaction) => transaction.category?.name || "Uncategorized",
+                  title: "Categoria",
+                  render: (_, transaction) => transaction.category?.name || "Sem categoria",
                 },
                 {
-                  title: "Wallet",
-                  render: (_, transaction) => transaction.wallet?.name || "Unknown wallet",
+                  title: "Carteira",
+                  render: (_, transaction) => transaction.wallet?.name || "Carteira desconhecida",
                 },
                 {
-                  title: "Date",
+                  title: "Data",
                   dataIndex: "date",
                   render: (value: string) => formatDate(value),
                 },
                 {
-                  title: "Amount",
+                  title: "Valor",
                   dataIndex: "amount",
                   align: "right",
                   render: (value: number, transaction: Transaction) =>
                     `${transaction.type === "expense" ? "-" : "+"} ${formatCurrency(value)}`,
                 },
                 {
-                  title: "Actions",
+                  title: "Acoes",
                   key: "actions",
                   align: "right",
                   render: (_, transaction) => (
@@ -214,8 +214,8 @@ export function TransactionsPage() {
                         }}
                       />
                       <Popconfirm
-                        title="Delete this transaction?"
-                        description="This action cannot be undone."
+                        title="Excluir esta transacao?"
+                        description="Esta acao nao pode ser desfeita."
                         onConfirm={() => handleDelete(transaction.id)}
                       >
                         <Button danger icon={<DeleteOutlined />} />
@@ -227,16 +227,16 @@ export function TransactionsPage() {
             />
           ) : (
             <AppEmptyState
-              title="No transactions found"
+              title="Nenhuma transacao encontrada"
               description={
                 categories.length && wallets.length
-                  ? "Create your first transaction or adjust your current filters."
-                  : "Create wallets and categories first so transactions can be recorded."
+                  ? "Crie sua primeira transacao ou ajuste os filtros atuais."
+                  : "Crie carteiras e categorias primeiro para registrar transacoes."
               }
               action={
                 categories.length && wallets.length ? (
                   <AppEmptyStateAction
-                    label="Create transaction"
+                    label="Criar transacao"
                     onClick={() => {
                       setSelectedTransaction(null);
                       setIsModalOpen(true);

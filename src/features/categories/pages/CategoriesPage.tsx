@@ -2,7 +2,10 @@ import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Card, List, Popconfirm, Space, Tabs, Tag } from "antd";
 import { useState } from "react";
 import { AsyncContent } from "../../../components/AsyncContent";
-import { AppEmptyState, AppEmptyStateAction } from "../../../components/AppEmptyState";
+import {
+  AppEmptyState,
+  AppEmptyStateAction,
+} from "../../../components/AppEmptyState";
 import { PageTitle } from "../../../components/PageTitle";
 import { useFeedback } from "../../../hooks/useFeedback";
 import { Category, CategoryInput } from "../../../services/types";
@@ -21,16 +24,21 @@ export function CategoriesPage() {
   const deleteMutation = useDeleteCategoryMutation();
   const feedback = useFeedback();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+    null,
+  );
 
   async function handleSubmit(values: CategoryInput) {
     try {
       if (selectedCategory) {
-        await updateMutation.mutateAsync({ id: selectedCategory.id, input: values });
-        feedback.success("Category updated successfully");
+        await updateMutation.mutateAsync({
+          id: selectedCategory.id,
+          input: values,
+        });
+        feedback.success("Categoria atualizada com sucesso");
       } else {
         await createMutation.mutateAsync(values);
-        feedback.success("Category created successfully");
+        feedback.success("Categoria criada com sucesso");
       }
 
       setSelectedCategory(null);
@@ -43,25 +51,31 @@ export function CategoriesPage() {
   async function handleDelete(categoryId: string) {
     try {
       await deleteMutation.mutateAsync(categoryId);
-      feedback.success("Category deleted successfully");
+      feedback.success("Categoria excluida com sucesso");
     } catch (error) {
       feedback.error(error as { message: string });
     }
   }
 
-  const categories = Array.isArray(categoriesQuery.data) ? categoriesQuery.data : [];
-  const incomeCategories = categories.filter((category) => category.type === "income");
-  const expenseCategories = categories.filter((category) => category.type === "expense");
+  const categories = Array.isArray(categoriesQuery.data)
+    ? categoriesQuery.data
+    : [];
+  const incomeCategories = categories.filter(
+    (category) => category.type === "income",
+  );
+  const expenseCategories = categories.filter(
+    (category) => category.type === "expense",
+  );
 
   function renderCategoryList(items: Category[]) {
     if (!items.length) {
       return (
         <AppEmptyState
-          title="No categories in this group"
-          description="Create a category to organize your transactions."
+          title="Nenhuma categoria neste grupo"
+          description="Crie uma categoria para organizar suas transacoes."
           action={
             <AppEmptyStateAction
-              label="Create category"
+              label="Criar categoria"
               onClick={() => {
                 setSelectedCategory(null);
                 setIsModalOpen(true);
@@ -88,15 +102,18 @@ export function CategoriesPage() {
               />,
               <Popconfirm
                 key="delete"
-                title="Delete this category?"
-                description="This action cannot be undone."
+                title="Excluir esta categoria?"
+                description="Esta acao nao pode ser desfeita."
                 onConfirm={() => handleDelete(category.id)}
               >
                 <Button danger icon={<DeleteOutlined />} />
               </Popconfirm>,
             ]}
           >
-            <List.Item.Meta title={category.name} description={<Tag>{category.type}</Tag>} />
+            <List.Item.Meta
+              title={category.name}
+              description={<Tag>{category.type}</Tag>}
+            />
           </List.Item>
         )}
       />
@@ -104,10 +121,10 @@ export function CategoriesPage() {
   }
 
   return (
-    <Space direction="vertical" size={24} style={{ width: "100%" }}>
+    <Space orientation="vertical" size={24} style={{ width: "100%" }}>
       <PageTitle
-        title="Categories"
-        subtitle="Separate income and expense categories for cleaner reporting."
+        title="Categorias"
+        subtitle="Separe categorias de receita e despesa para relatórios mais claros."
         extra={
           <Button
             type="primary"
@@ -117,7 +134,7 @@ export function CategoriesPage() {
               setIsModalOpen(true);
             }}
           >
-            New category
+            Nova categoria
           </Button>
         }
       />
@@ -128,8 +145,16 @@ export function CategoriesPage() {
         >
           <Tabs
             items={[
-              { key: "expense", label: `Expense (${expenseCategories.length})`, children: renderCategoryList(expenseCategories) },
-              { key: "income", label: `Income (${incomeCategories.length})`, children: renderCategoryList(incomeCategories) },
+              {
+                key: "expense",
+                label: `Despesas (${expenseCategories.length})`,
+                children: renderCategoryList(expenseCategories),
+              },
+              {
+                key: "income",
+                label: `Receitas (${incomeCategories.length})`,
+                children: renderCategoryList(incomeCategories),
+              },
             ]}
           />
         </AsyncContent>

@@ -41,8 +41,8 @@ export function DashboardPage() {
   return (
     <Space direction="vertical" size={24} style={{ width: "100%" }}>
       <PageTitle
-        title="Dashboard"
-        subtitle="A fast overview of total balance, cash flow, and spending distribution."
+        title="Painel"
+        subtitle="Visao rapida do saldo total, fluxo financeiro e distribuicao de gastos."
         extra={
           <RangePicker
             format="DD/MM/YYYY"
@@ -66,20 +66,20 @@ export function DashboardPage() {
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12} xl={8}>
                 <SummaryStatCard
-                  title="Total balance"
+                  title="Saldo total"
                   value={formatCurrency(summary.totalBalance)}
                 />
               </Col>
               <Col xs={24} md={12} xl={8}>
                 <SummaryStatCard
-                  title="Income"
+                  title="Receitas"
                   value={formatCurrency(summary.totalIncome)}
                   tone="success"
                 />
               </Col>
               <Col xs={24} md={12} xl={8}>
                 <SummaryStatCard
-                  title="Expense"
+                  title="Despesas"
                   value={formatCurrency(summary.totalExpense)}
                   tone="danger"
                 />
@@ -87,7 +87,7 @@ export function DashboardPage() {
             </Row>
             <Row gutter={[16, 16]}>
               <Col xs={24} xl={16}>
-                <Card title="Spending by category">
+                <Card title="Gastos por categoria">
                   {fallbackChartData.length ? (
                     <Pie
                       data={fallbackChartData}
@@ -98,13 +98,13 @@ export function DashboardPage() {
                     />
                   ) : (
                     <Typography.Text type="secondary">
-                      No category data available for the selected period.
+                      Nenhum dado por categoria disponivel para o periodo selecionado.
                     </Typography.Text>
                   )}
                 </Card>
               </Col>
               <Col xs={24} xl={8}>
-                <Card title="Wallet balances">
+                <Card title="Saldos das carteiras">
                   <List
                     dataSource={wallets}
                     renderItem={(wallet) => (
@@ -120,8 +120,8 @@ export function DashboardPage() {
           </>
         ) : (
           <AppEmptyState
-            title="No financial overview yet"
-            description="Create wallets, categories, and transactions to populate your dashboard."
+            title="Nenhum resumo financeiro ainda"
+            description="Crie carteiras, categorias e transacoes para preencher seu painel."
           />
         )}
       </AsyncContent>

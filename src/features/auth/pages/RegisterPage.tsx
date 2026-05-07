@@ -19,7 +19,7 @@ export function RegisterPage() {
   async function handleSubmit(values: RegisterInput) {
     try {
       await mutation.mutateAsync(values);
-      feedback.success("Account created successfully");
+      feedback.success("Conta criada com sucesso");
       navigate("/dashboard", { replace: true });
     } catch (error) {
       feedback.error(error as { message: string });
@@ -27,24 +27,41 @@ export function RegisterPage() {
   }
 
   return (
-    <Space direction="vertical" size={24} style={{ width: "100%" }}>
-      <Typography.Title level={3}>Create account</Typography.Title>
+    <Space orientation="vertical" size={24} style={{ width: "100%" }}>
+      <Typography.Title level={3}>Criar conta</Typography.Title>
       <Form form={form} layout="vertical" onFinish={handleSubmit}>
-        <Form.Item label="Name" name="name" rules={[{ required: true, min: 2 }]}>
-          <Input placeholder="Your name" />
+        <Form.Item
+          label="Nome"
+          name="name"
+          rules={[{ required: true, min: 2 }]}
+        >
+          <Input placeholder="Seu nome" />
         </Form.Item>
-        <Form.Item label="Email" name="email" rules={[{ required: true, type: "email" }]}>
+        <Form.Item
+          label="Email"
+          name="email"
+          rules={[{ required: true, type: "email" }]}
+        >
           <Input placeholder="you@example.com" />
         </Form.Item>
-        <Form.Item label="Password" name="password" rules={[{ required: true, min: 6 }]}>
-          <Input.Password placeholder="At least 6 characters" />
+        <Form.Item
+          label="Senha"
+          name="password"
+          rules={[{ required: true, min: 6 }]}
+        >
+          <Input.Password placeholder="Pelo menos 6 caracteres" />
         </Form.Item>
-        <Button type="primary" htmlType="submit" block loading={mutation.isPending}>
-          Register
+        <Button
+          type="primary"
+          htmlType="submit"
+          block
+          loading={mutation.isPending}
+        >
+          Cadastrar
         </Button>
       </Form>
       <Typography.Text type="secondary">
-        Already have an account? <Link to="/login">Sign in</Link>
+        Ja possui conta? <Link to="/login">Entrar</Link>
       </Typography.Text>
     </Space>
   );

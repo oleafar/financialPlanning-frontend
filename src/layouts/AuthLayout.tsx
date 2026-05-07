@@ -7,7 +7,7 @@ export function AuthLayout() {
       <Card className="auth-card">
         <Typography.Title level={2}>Financial Planning</Typography.Title>
         <Typography.Paragraph type="secondary">
-          Personal finance control with a clear and direct daily workflow.
+          Controle financeiro pessoal com uma rotina diaria clara e objetiva.
         </Typography.Paragraph>
         <Outlet />
       </Card>

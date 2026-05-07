@@ -2,10 +2,10 @@ import { Form, Input, InputNumber, Modal, Select } from "antd";
 import { Wallet, WalletInput, WalletType } from "../../../services/types";
 
 const walletTypeOptions: Array<{ label: string; value: WalletType }> = [
-  { label: "Bank", value: "bank" },
-  { label: "Cash", value: "cash" },
+  { label: "Banco", value: "bank" },
+  { label: "Dinheiro", value: "cash" },
   { label: "Digital", value: "digital" },
-  { label: "Other", value: "other" },
+  { label: "Outro", value: "other" },
 ];
 
 type WalletFormModalProps = {
@@ -28,8 +28,8 @@ export function WalletFormModal({
   return (
     <Modal
       open={open}
-      title={initialValues ? "Edit wallet" : "New wallet"}
-      okText={initialValues ? "Save changes" : "Create wallet"}
+      title={initialValues ? "Editar carteira" : "Nova carteira"}
+      okText={initialValues ? "Salvar alteracoes" : "Criar carteira"}
       confirmLoading={confirmLoading}
       onCancel={onCancel}
       onOk={() => form.submit()}
@@ -46,13 +46,13 @@ export function WalletFormModal({
       }}
     >
       <Form form={form} layout="vertical" onFinish={onSubmit}>
-        <Form.Item label="Name" name="name" rules={[{ required: true, min: 2 }]}>
-          <Input placeholder="Main bank account" />
+        <Form.Item label="Nome" name="name" rules={[{ required: true, min: 2 }]}>
+          <Input placeholder="Conta principal" />
         </Form.Item>
-        <Form.Item label="Type" name="type" rules={[{ required: true }]}>
+        <Form.Item label="Tipo" name="type" rules={[{ required: true }]}>
           <Select options={walletTypeOptions} />
         </Form.Item>
-        <Form.Item label="Initial balance" name="balance">
+        <Form.Item label="Saldo inicial" name="balance">
           <InputNumber min={0} precision={2} style={{ width: "100%" }} />
         </Form.Item>
       </Form>

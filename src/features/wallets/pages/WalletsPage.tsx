@@ -28,10 +28,10 @@ export function WalletsPage() {
     try {
       if (selectedWallet) {
         await updateMutation.mutateAsync({ id: selectedWallet.id, input: values });
-        feedback.success("Wallet updated successfully");
+        feedback.success("Carteira atualizada com sucesso");
       } else {
         await createMutation.mutateAsync(values);
-        feedback.success("Wallet created successfully");
+        feedback.success("Carteira criada com sucesso");
       }
 
       setSelectedWallet(null);
@@ -44,7 +44,7 @@ export function WalletsPage() {
   async function handleDelete(walletId: string) {
     try {
       await deleteMutation.mutateAsync(walletId);
-      feedback.success("Wallet deleted successfully");
+      feedback.success("Carteira excluida com sucesso");
     } catch (error) {
       feedback.error(error as { message: string });
     }
@@ -55,8 +55,8 @@ export function WalletsPage() {
   return (
     <Space direction="vertical" size={24} style={{ width: "100%" }}>
       <PageTitle
-        title="Wallets"
-        subtitle="Manage the places where your money lives."
+        title="Carteiras"
+        subtitle="Gerencie os locais onde seu dinheiro esta."
         extra={
           <Button
             type="primary"
@@ -66,7 +66,7 @@ export function WalletsPage() {
               setIsModalOpen(true);
             }}
           >
-            New wallet
+            Nova carteira
           </Button>
         }
       />
@@ -81,20 +81,21 @@ export function WalletsPage() {
               rowKey="id"
               pagination={false}
               columns={[
-                { title: "Name", dataIndex: "name" },
+                { title: "Nome", dataIndex: "name" },
                 {
-                  title: "Type",
+                  title: "Tipo",
                   dataIndex: "type",
-                  render: (type: Wallet["type"]) => <Tag>{type}</Tag>,
+                  render: (type: Wallet["type"]) =>
+                    <Tag>{type === "bank" ? "Banco" : type === "cash" ? "Dinheiro" : type === "digital" ? "Digital" : "Outro"}</Tag>,
                 },
                 {
-                  title: "Balance",
+                  title: "Saldo",
                   dataIndex: "balance",
                   align: "right",
                   render: (value: number) => formatCurrency(value),
                 },
                 {
-                  title: "Actions",
+                  title: "Acoes",
                   key: "actions",
                   align: "right",
                   render: (_, wallet) => (
@@ -107,8 +108,8 @@ export function WalletsPage() {
                         }}
                       />
                       <Popconfirm
-                        title="Delete this wallet?"
-                        description="This action cannot be undone."
+                        title="Excluir esta carteira?"
+                        description="Esta acao nao pode ser desfeita."
                         onConfirm={() => handleDelete(wallet.id)}
                       >
                         <Button danger icon={<DeleteOutlined />} />
@@ -120,11 +121,11 @@ export function WalletsPage() {
             />
           ) : (
             <AppEmptyState
-              title="No wallets yet"
-              description="Create your first wallet to start tracking balances and transactions."
+              title="Nenhuma carteira ainda"
+              description="Crie sua primeira carteira para comecar a acompanhar saldos e transacoes."
               action={
                 <AppEmptyStateAction
-                  label="Create wallet"
+                  label="Criar carteira"
                   onClick={() => {
                     setSelectedWallet(null);
                     setIsModalOpen(true);

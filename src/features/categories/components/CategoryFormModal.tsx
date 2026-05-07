@@ -1,9 +1,13 @@
 import { Form, Input, Modal, Select } from "antd";
-import { Category, CategoryInput, TransactionType } from "../../../services/types";
+import {
+  Category,
+  CategoryInput,
+  TransactionType,
+} from "../../../services/types";
 
 const typeOptions: Array<{ label: string; value: TransactionType }> = [
-  { label: "Income", value: "income" },
-  { label: "Expense", value: "expense" },
+  { label: "Receita", value: "income" },
+  { label: "Despesa", value: "expense" },
 ];
 
 type CategoryFormModalProps = {
@@ -26,8 +30,8 @@ export function CategoryFormModal({
   return (
     <Modal
       open={open}
-      title={initialValues ? "Edit category" : "New category"}
-      okText={initialValues ? "Save changes" : "Create category"}
+      title={initialValues ? "Editar categoria" : "Nova categoria"}
+      okText={initialValues ? "Salvar alteracoes" : "Criar categoria"}
       confirmLoading={confirmLoading}
       onCancel={onCancel}
       onOk={() => form.submit()}
@@ -44,10 +48,14 @@ export function CategoryFormModal({
       }}
     >
       <Form form={form} layout="vertical" onFinish={onSubmit}>
-        <Form.Item label="Name" name="name" rules={[{ required: true, min: 2 }]}>
-          <Input placeholder="Food, Salary, Transport..." />
+        <Form.Item
+          label="Nome"
+          name="name"
+          rules={[{ required: true, min: 2 }]}
+        >
+          <Input placeholder="Alimentacao, Salario, Transporte..." />
         </Form.Item>
-        <Form.Item label="Type" name="type" rules={[{ required: true }]}>
+        <Form.Item label="Tipo" name="type" rules={[{ required: true }]}>
           <Select options={typeOptions} />
         </Form.Item>
       </Form>

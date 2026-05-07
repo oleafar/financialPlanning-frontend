@@ -19,7 +19,7 @@ export function LoginPage() {
   async function handleSubmit(values: LoginInput) {
     try {
       await mutation.mutateAsync(values);
-      feedback.success("Login successful");
+      feedback.success("Login realizado com sucesso");
       navigate("/dashboard", { replace: true });
     } catch (error) {
       feedback.error(error as { message: string });
@@ -27,21 +27,34 @@ export function LoginPage() {
   }
 
   return (
-    <Space direction="vertical" size={24} style={{ width: "100%" }}>
-      <Typography.Title level={3}>Login</Typography.Title>
+    <Space orientation="vertical" size={24} style={{ width: "100%" }}>
+      <Typography.Title level={3}>Entrar</Typography.Title>
       <Form form={form} layout="vertical" onFinish={handleSubmit}>
-        <Form.Item label="Email" name="email" rules={[{ required: true, type: "email" }]}>
+        <Form.Item
+          label="Email"
+          name="email"
+          rules={[{ required: true, type: "email" }]}
+        >
           <Input placeholder="you@example.com" />
         </Form.Item>
-        <Form.Item label="Password" name="password" rules={[{ required: true, min: 6 }]}>
-          <Input.Password placeholder="Your password" />
+        <Form.Item
+          label="Senha"
+          name="password"
+          rules={[{ required: true, min: 6 }]}
+        >
+          <Input.Password placeholder="Sua senha" />
         </Form.Item>
-        <Button type="primary" htmlType="submit" block loading={mutation.isPending}>
-          Sign in
+        <Button
+          type="primary"
+          htmlType="submit"
+          block
+          loading={mutation.isPending}
+        >
+          Entrar
         </Button>
       </Form>
       <Typography.Text type="secondary">
-        No account yet? <Link to="/register">Create one</Link>
+        Ainda nao tem conta? <Link to="/register">Criar conta</Link>
       </Typography.Text>
     </Space>
   );
