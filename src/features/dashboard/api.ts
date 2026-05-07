@@ -6,43 +6,32 @@ import {
   ReportFilters,
   SummaryReport,
 } from "../../services/types";
+import {
+  normalizeCategoryReport,
+  normalizePeriodReport,
+  normalizeSummaryReport,
+} from "../../services/normalizers";
 
-type BackendSummaryReport = {
-  totalBalance: number;
-  income: number;
-  expense: number;
-  net: number;
-  wallets: SummaryReport["wallets"];
-};
-
-export function mapSummaryReport(data: BackendSummaryReport): SummaryReport {
-  return {
-    totalBalance: data.totalBalance,
-    totalIncome: data.income,
-    totalExpense: data.expense,
-    net: data.net,
-    wallets: data.wallets,
-  };
-}
+export const mapSummaryReport = normalizeSummaryReport;
 
 export async function getSummaryReport(filters: ReportFilters) {
-  const response = await apiClient.get<ApiEnvelope<BackendSummaryReport>>("/reports/summary", {
+  const response = await apiClient.get<ApiEnvelope<SummaryReport>>("/reports/summary", {
     params: filters,
   });
 
-  return mapSummaryReport(response.data.data);
+  return normalizeSummaryReport(response.data.data);
 }
 
 export async function getCategoryReport(filters: ReportFilters) {
   const response = await apiClient.get<ApiEnvelope<CategoryReportItem[]>>("/reports/by-category", {
     params: filters,
   });
-  return response.data.data;
+  return normalizeCategoryReport(response.data.data);
 }
 
 export async function getPeriodReport(filters: ReportFilters) {
   const response = await apiClient.get<ApiEnvelope<PeriodReportItem[]>>("/reports/by-period", {
     params: filters,
   });
-  return response.data.data;
+  return normalizePeriodReport(response.data.data);
 }

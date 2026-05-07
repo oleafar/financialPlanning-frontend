@@ -49,7 +49,7 @@ export function CategoriesPage() {
     }
   }
 
-  const categories = categoriesQuery.data || [];
+  const categories = Array.isArray(categoriesQuery.data) ? categoriesQuery.data : [];
   const incomeCategories = categories.filter((category) => category.type === "income");
   const expenseCategories = categories.filter((category) => category.type === "expense");
 

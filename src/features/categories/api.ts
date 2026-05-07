@@ -1,9 +1,10 @@
 import { apiClient } from "../../services/api-client";
+import { normalizeCategories } from "../../services/normalizers";
 import { ApiEnvelope, Category, CategoryInput } from "../../services/types";
 
 export async function listCategories() {
   const response = await apiClient.get<ApiEnvelope<Category[]>>("/categories");
-  return response.data.data;
+  return normalizeCategories(response.data.data);
 }
 
 export async function createCategory(input: CategoryInput) {

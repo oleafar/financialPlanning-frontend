@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from "react";
-import { getToken, isAuthenticated } from "../services/session";
+import { getToken } from "../services/session";
 
 const listeners = new Set<() => void>();
 
@@ -13,12 +13,14 @@ function subscribe(listener: () => void) {
 }
 
 function getSnapshot() {
-  return {
-    token: getToken(),
-    isAuthenticated: isAuthenticated(),
-  };
+  return getToken();
 }
 
 export function useAuthSession() {
-  return useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
+  const token = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
+
+  return {
+    token,
+    isAuthenticated: Boolean(token),
+  };
 }

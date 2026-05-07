@@ -9,7 +9,7 @@ export function NotFoundPage() {
       subTitle="The page you tried to access does not exist."
       extra={
         <Button type="primary">
-          <Link to="/">Back to app</Link>
+          <Link to="/dashboard">Back to app</Link>
         </Button>
       }
     />

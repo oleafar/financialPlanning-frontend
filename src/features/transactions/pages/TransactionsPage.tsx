@@ -48,8 +48,8 @@ export function TransactionsPage() {
   const feedback = useFeedback();
 
   const transactionsData = transactionsQuery.data;
-  const categories = categoriesQuery.data || [];
-  const wallets = walletsQuery.data || [];
+  const categories = Array.isArray(categoriesQuery.data) ? categoriesQuery.data : [];
+  const wallets = Array.isArray(walletsQuery.data) ? walletsQuery.data : [];
   const searchTerm = search.trim().toLowerCase();
   const filteredItems =
     transactionsData?.items.filter((transaction) =>

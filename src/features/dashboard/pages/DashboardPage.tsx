@@ -19,9 +19,11 @@ export function DashboardPage() {
   const periodQuery = usePeriodReportQuery(filters);
 
   const summary = summaryQuery.data;
+  const wallets = summary?.wallets || [];
   const categoryItems = categoryQuery.data || [];
+  const periodItems = periodQuery.data || [];
   const hasAnyData =
-    Boolean(summary?.wallets.length) || categoryItems.length > 0 || (periodQuery.data || []).length > 0;
+    wallets.length > 0 || categoryItems.length > 0 || periodItems.length > 0;
 
   const chartData =
     categoryItems
@@ -59,7 +61,7 @@ export function DashboardPage() {
           summaryQuery.error?.message || categoryQuery.error?.message || periodQuery.error?.message || null
         }
       >
-        {hasAnyData && summary ? (
+        {summary && hasAnyData ? (
           <>
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12} xl={8}>
@@ -104,7 +106,7 @@ export function DashboardPage() {
               <Col xs={24} xl={8}>
                 <Card title="Wallet balances">
                   <List
-                    dataSource={summary.wallets}
+                    dataSource={wallets}
                     renderItem={(wallet) => (
                       <List.Item>
                         <List.Item.Meta title={wallet.name} description={wallet.type} />

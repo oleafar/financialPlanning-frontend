@@ -1,22 +1,26 @@
 import { Button, Form, Input, Space, Typography } from "antd";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../hooks";
 import { useFeedback } from "../../../hooks/useFeedback";
 import { LoginInput } from "../../../services/types";
+import { useAuthSession } from "../../../hooks/useAuthSession";
 
 export function LoginPage() {
   const [form] = Form.useForm<LoginInput>();
   const mutation = useLoginMutation();
   const feedback = useFeedback();
   const navigate = useNavigate();
-  const location = useLocation();
-  const redirectTo = location.state?.from?.pathname || "/";
+  const session = useAuthSession();
+
+  if (session.isAuthenticated) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   async function handleSubmit(values: LoginInput) {
     try {
       await mutation.mutateAsync(values);
       feedback.success("Login successful");
-      navigate(redirectTo, { replace: true });
+      navigate("/dashboard", { replace: true });
     } catch (error) {
       feedback.error(error as { message: string });
     }

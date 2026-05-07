@@ -1,20 +1,26 @@
 import { Button, Form, Input, Space, Typography } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../hooks";
 import { useFeedback } from "../../../hooks/useFeedback";
 import { RegisterInput } from "../../../services/types";
+import { useAuthSession } from "../../../hooks/useAuthSession";
 
 export function RegisterPage() {
   const [form] = Form.useForm<RegisterInput>();
   const mutation = useRegisterMutation();
   const feedback = useFeedback();
   const navigate = useNavigate();
+  const session = useAuthSession();
+
+  if (session.isAuthenticated) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   async function handleSubmit(values: RegisterInput) {
     try {
       await mutation.mutateAsync(values);
       feedback.success("Account created successfully");
-      navigate("/", { replace: true });
+      navigate("/dashboard", { replace: true });
     } catch (error) {
       feedback.error(error as { message: string });
     }

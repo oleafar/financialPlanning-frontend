@@ -1,4 +1,5 @@
 import { apiClient } from "../../services/api-client";
+import { normalizeTransactionsResponse } from "../../services/normalizers";
 import {
   ApiEnvelope,
   Transaction,
@@ -11,7 +12,7 @@ export async function listTransactions(filters: TransactionFilters) {
   const response = await apiClient.get<ApiEnvelope<TransactionsResponse>>("/transactions", {
     params: filters,
   });
-  return response.data.data;
+  return normalizeTransactionsResponse(response.data.data);
 }
 
 export async function createTransaction(input: TransactionInput) {

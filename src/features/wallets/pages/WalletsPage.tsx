@@ -50,7 +50,7 @@ export function WalletsPage() {
     }
   }
 
-  const wallets = walletsQuery.data || [];
+  const wallets = Array.isArray(walletsQuery.data) ? walletsQuery.data : [];
 
   return (
     <Space direction="vertical" size={24} style={{ width: "100%" }}>

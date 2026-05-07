@@ -13,7 +13,7 @@ import { notifySessionChange } from "../hooks/useAuthSession";
 const { Header, Sider, Content } = Layout;
 
 const items = [
-  { key: "/", icon: <AppstoreOutlined />, label: "Dashboard" },
+  { key: "/dashboard", icon: <AppstoreOutlined />, label: "Dashboard" },
   { key: "/transactions", icon: <ProfileOutlined />, label: "Transactions" },
   { key: "/wallets", icon: <WalletOutlined />, label: "Wallets" },
   { key: "/categories", icon: <TagsOutlined />, label: "Categories" },
@@ -24,8 +24,7 @@ export function AppLayout() {
   const navigate = useNavigate();
 
   const selectedKey =
-    items.find((item) => (item.key === "/" ? location.pathname === "/" : location.pathname.startsWith(item.key)))
-      ?.key || "/";
+    items.find((item) => location.pathname.startsWith(item.key))?.key || "/dashboard";
 
   function handleLogout() {
     clearToken();

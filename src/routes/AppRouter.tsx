@@ -18,9 +18,9 @@ export function AppRouter() {
         <Route path="register" element={<RegisterPage />} />
       </Route>
       <Route element={<PrivateRoute />}>
-        <Route path="/" element={<AppLayout />}>
-          <Route index element={<DashboardPage />} />
-          <Route path="dashboard" element={<Navigate to="/" replace />} />
+        <Route element={<AppLayout />}>
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="dashboard" element={<DashboardPage />} />
           <Route path="transactions" element={<TransactionsPage />} />
           <Route path="wallets" element={<WalletsPage />} />
           <Route path="categories" element={<CategoriesPage />} />

@@ -1,9 +1,10 @@
 import { apiClient } from "../../services/api-client";
+import { normalizeWallets } from "../../services/normalizers";
 import { ApiEnvelope, Wallet, WalletInput } from "../../services/types";
 
 export async function listWallets() {
   const response = await apiClient.get<ApiEnvelope<Wallet[]>>("/wallets");
-  return response.data.data;
+  return normalizeWallets(response.data.data);
 }
 
 export async function createWallet(input: WalletInput) {
